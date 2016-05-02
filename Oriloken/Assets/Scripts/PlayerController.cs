@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,29 +9,41 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerPosition;
     public float boundary;
 
-    // используйте этот метод для инициализации
+    private int playerLives;
+    private int playerPoints;
+
+    public AudioClip pointSound;
+    public AudioClip lifeSound;
+
+    public Text liveText;
+    public Text scoreText;
+
+    // Use this for initialization
     void Start()
     {
-        // получим начальную позицию платформы
+        // get the initial position of the game object
         playerPosition = gameObject.transform.position;
+        playerLives = 3;
+        playerPoints = 0;
+
     }
 
-    // Update вызывается при отрисовке каждого кадра игры
+    // Update is called once per frame
     void Update()
     {
-        // горизонтальное движение
+        // horizontal movement
         playerPosition.x += Input.GetAxis("Horizontal") * playerVelocity;
 
-        // выход из игры
+        // leave the game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
 
-        // обновим позицию платформы
+        // update the game object transform
         transform.position = playerPosition;
 
-        // проверка выхода за границы
+        // boundaries
         if (playerPosition.x < -boundary)
         {
             transform.position = new Vector3(-boundary, playerPosition.y, playerPosition.z);
@@ -38,6 +51,49 @@ public class PlayerController : MonoBehaviour
         if (playerPosition.x > boundary)
         {
             transform.position = new Vector3(boundary, playerPosition.y, playerPosition.z);
+        }
+
+        // Check game state
+        WinLose();
+    }
+
+    void addPoints(int points)
+    {
+        playerPoints += points;
+        GetComponent<AudioSource>().PlayOneShot(pointSound);
+    }
+
+    void OnGUI()
+    {
+        liveText.text = playerLives.ToString();
+        scoreText.text = playerPoints.ToString();
+    }
+
+    void TakeLife()
+    {
+        playerLives--;
+        GetComponent<AudioSource>().PlayOneShot(lifeSound);
+    }
+
+    void WinLose()
+    {
+        // restart the game
+        if (playerLives == 0)
+        {
+            Application.LoadLevel("Level1");
+        }
+
+        // blocks destroyed
+        if ((GameObject.FindGameObjectsWithTag("Block")).Length == 0)
+        {
+            // check the current level
+            if (Application.loadedLevelName == "Level1")
+            {
+                Application.LoadLevel("Level2");
+            }
+            else {
+                Application.Quit();
+            }
         }
     }
 }
