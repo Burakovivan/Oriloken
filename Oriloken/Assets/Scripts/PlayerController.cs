@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 using System.Collections;
 using UnityEngine.UI;
 
@@ -31,8 +32,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // horizontal movement
-        playerPosition.x += Input.GetAxis("Horizontal") * playerVelocity;
+        playerPosition.x += playerPosition.x >= boundary ? Input.GetAxis("Horizontal") > 0 ?
+            0 : Input.GetAxis("Horizontal") * playerVelocity :
+            playerPosition.x <= -boundary ? Input.GetAxis("Horizontal") < 0 ?
+            0 : Input.GetAxis("Horizontal") * playerVelocity :
+            Input.GetAxis("Horizontal") * playerVelocity;
 
         // leave the game
         if (Input.GetKeyDown(KeyCode.Escape))
