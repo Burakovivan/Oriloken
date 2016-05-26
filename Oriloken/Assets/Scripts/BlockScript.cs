@@ -38,12 +38,7 @@ public class BlockScript : MonoBehaviour
                 Destroy(this.gameObject);
                 return;
             }
-            //switch (hitsToKill)
-            //{
-            //    case 3: GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(Application.dataPath + @"/Sprites/Cubes/Yellow.png"); break;
-            //    case 2: GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(Application.dataPath + @"/Sprites/Cubes/Green.png"); break;
-            //    case 1: GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(Application.dataPath + @"/Sprites/Cubes/Blue.png"); break;
-            //}
+
 
         }
     }
