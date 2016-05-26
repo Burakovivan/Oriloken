@@ -37,9 +37,7 @@ public class BlockScript : MonoBehaviour
                 // destroy the object
                 Destroy(this.gameObject);
                 return;
-            }
-
-
+            }  
         }
     }
 

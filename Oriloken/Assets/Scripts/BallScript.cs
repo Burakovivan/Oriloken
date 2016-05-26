@@ -55,7 +55,7 @@ public class BallScript : MonoBehaviour {
 			if (ballIsActive && transform.position.y < -6) {
 				ballIsActive = !ballIsActive;
 				ballPosition.x = playerObject.transform.position.x;
-				ballPosition.y = -3.5f;
+				ballPosition.y = -3.63f;
 				transform.position = ballPosition;
 				
 				GetComponent<Rigidbody2D>().isKinematic = true;

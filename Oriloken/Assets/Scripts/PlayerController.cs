@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         // leave the game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            Application.LoadLevel("Menu_play");
         }
 
         // update the game object transform
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         // restart the game
         if (playerLives == 0)
         {
-            Application.LoadLevel("Level1");
+            Application.LoadLevel(Application.loadedLevelName);
         }
 
         // blocks destroyed
@@ -97,8 +97,12 @@ public class PlayerController : MonoBehaviour
             {
                 Application.LoadLevel("Level2");
             }
+            else if (Application.loadedLevelName == "Level2")
+            {
+                Application.LoadLevel("Level3");
+            }
             else {
-                Application.Quit();
+                Application.LoadLevel("Menu_play");
             }
         }
     }
